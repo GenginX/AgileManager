@@ -11,26 +11,14 @@ import java.time.LocalDate;
 @Getter
 public class UserInput {
 
-    public static final String WRONG_USER_TYPE_PROVIDED = "WRONG USER TYPE PROVIDED";
     private String login;
     private String password;
-    private UserType userType;
     @JsonIgnore
     private LocalDate createDate = LocalDate.now();
 
-    public UserInput(String login, String password, String userType) throws AgileException {
+    public UserInput(String login, String password) {
         this.login = login;
         this.password = password;
-        this.userType = convertStringToUserType(userType);
     }
 
-    private UserType convertStringToUserType(String userType) throws AgileException {
-        UserType[] values = UserType.values();
-        for (UserType value : values) {
-            if (value.getName().toLowerCase().equals(userType.toLowerCase())) {
-                return value;
-            }
-        }
-        throw new AgileException(WRONG_USER_TYPE_PROVIDED);
-    }
 }
