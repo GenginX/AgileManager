@@ -3,6 +3,7 @@ package pl.kaczmar.AgileProject.User.Entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.kaczmar.AgileProject.User.Model.UserOutput;
 import pl.kaczmar.AgileProject.User.Model.UserType;
 
 import javax.persistence.*;
@@ -28,5 +29,9 @@ public class UserEntity {
         this.password = password;
         this.userType = userType.getName();
         this.createDate = createDate;
+    }
+
+    public UserOutput convertToUserOutput(){
+        return new UserOutput(login, id, createDate, userType);
     }
 }

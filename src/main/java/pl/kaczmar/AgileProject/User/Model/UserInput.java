@@ -26,15 +26,11 @@ public class UserInput {
 
     private UserType convertStringToUserType(String userType) throws AgileException {
         UserType[] values = UserType.values();
-        for (UserType value : values){
-            if(value.getName().toLowerCase().equals(userType.toLowerCase())){
+        for (UserType value : values) {
+            if (value.getName().toLowerCase().equals(userType.toLowerCase())) {
                 return value;
             }
-            else{
-                throw new AgileException(WRONG_USER_TYPE_PROVIDED);
-            }
         }
-        return null;
+        throw new AgileException(WRONG_USER_TYPE_PROVIDED);
     }
-
 }

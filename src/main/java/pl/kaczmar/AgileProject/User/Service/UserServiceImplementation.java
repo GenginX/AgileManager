@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.kaczmar.AgileProject.User.Entity.UserEntity;
 import pl.kaczmar.AgileProject.User.Model.UserInput;
+import pl.kaczmar.AgileProject.User.Model.UserOutput;
 import pl.kaczmar.AgileProject.User.Repository.UserRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -20,5 +24,12 @@ public class UserServiceImplementation implements UserService {
     public void createUserByService(UserInput userInput) {
         userRepository.save(
                 new UserEntity(userInput.getLogin(), userInput.getPassword(), userInput.getUserType(), userInput.getCreateDate()));
+    }
+
+    public List<UserOutput> getAllUsers(){
+        return userRepository.findAll()
+                .stream()
+                .map(e->e.convertToUserOutput())
+                .collect(Collectors.toList());
     }
 }
