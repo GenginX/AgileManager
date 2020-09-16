@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserService {
 
-    void createUserByService(UserInput userInput);
+    void createUserByService(UserInput userInput) throws AgileException;
     List<UserOutput> getAllUsers();
     UserOutput getUserById(Long id) throws AgileException;
     void removeUserById(Long id) throws AgileException;

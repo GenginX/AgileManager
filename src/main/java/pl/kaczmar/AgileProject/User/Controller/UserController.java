@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUser(@RequestBody UserInput userInput){
+    public ResponseEntity<Void> createUser(@RequestBody UserInput userInput) throws AgileException {
         userService.createUserByService(userInput);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

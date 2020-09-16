@@ -6,4 +6,5 @@ import pl.kaczmar.AgileProject.User.Entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    boolean existsByLogin(String login);
 }
