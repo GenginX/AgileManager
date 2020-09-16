@@ -13,5 +13,6 @@ public interface UserService {
     void createUserByService(UserInput userInput);
     List<UserOutput> getAllUsers();
     UserOutput getUserById(Long id) throws AgileException;
+    void removeUserById(Long id) throws AgileException;
 
 }

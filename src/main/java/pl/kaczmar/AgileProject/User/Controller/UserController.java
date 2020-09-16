@@ -46,4 +46,12 @@ public class UserController {
                 .body(userById);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removeUserById(@PathVariable (value = "id") Long id) throws AgileException {
+        userService.removeUserById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .build();
+    }
+
 }

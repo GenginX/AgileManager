@@ -29,20 +29,34 @@ public class UserServiceImplementation implements UserService {
                 new UserEntity(userInput.getLogin(), userInput.getPassword(), userInput.getCreateDate()));
     }
 
-     public List<UserOutput> getAllUsers(){
+    public List<UserOutput> getAllUsers() {
         return userRepository.findAll()
                 .stream()
-                .map(e->e.convertToUserOutput())
+                .map(e -> e.convertToUserOutput())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserOutput getUserById(Long id) throws AgileException {
-        Optional<UserEntity> optionalUserById = userRepository.findById(id);
-        if(!optionalUserById.isPresent()){
-            throw new AgileException(NO_USER_FOUND_FOR_GIVEN_ID);
+    public void removeUserById(Long id) throws AgileException {
+        if(checkIfUserWithThisIdExists(id)){
+            userRepository.delete(getUserEntityById(id));
         }
-        return optionalUserById.get().convertToUserOutput();
+    }
 
+    @Override
+    public UserOutput getUserById(Long id) throws AgileException {
+        return getUserEntityById(id).convertToUserOutput();
+    }
+
+    private boolean checkIfUserWithThisIdExists(Long id){
+        return userRepository.existsById(id);
+    }
+
+    private UserEntity getUserEntityById(Long id) throws AgileException {
+        if(checkIfUserWithThisIdExists(id)){
+            Optional<UserEntity> byId = userRepository.findById(id);
+            return byId.get();
+        }
+        throw new AgileException(NO_USER_FOUND_FOR_GIVEN_ID);
     }
 }
